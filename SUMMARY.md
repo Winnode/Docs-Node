@@ -1,7 +1,11 @@
 # Table of contents
 
 * [Winnode Doc Node](README.md)
-* [Mainnet](mainnet.md)
+* [Mainnet](mainnet/README.md)
+  * [Pactus](mainnet/pactus/README.md)
+    * [Installation](mainnet/pactus/installation.md)
+  * [Massa](mainnet/massa/README.md)
+    * [Installation](mainnet/massa/installation.md)
 
 ## Testnet
 
