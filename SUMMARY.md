@@ -1,7 +1,6 @@
 # Table of contents
 
 * [Winnode Doc Node](README.md)
-* [Winnode Doc Node](<README (1).md>)
 * [Mainnet](mainnet/README.md)
   * [Namada Shielded Expedition](mainnet/namada-shielded-expedition/README.md)
     * [Installation](mainnet/namada-shielded-expedition/installation.md)
