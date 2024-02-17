@@ -1,6 +1,6 @@
 ---
-cover: broken-reference
-coverY: 49.00169204737733
+cover: .gitbook/assets/Fashion Brand Art Design Logo.png
+coverY: 27
 layout:
   cover:
     visible: true
