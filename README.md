@@ -1,17 +1,3 @@
----
-layout:
-  title:
-    visible: true
-  description:
-    visible: true
-  tableOfContents:
-    visible: true
-  outline:
-    visible: true
-  pagination:
-    visible: true
----
-
 # Winnode Doc Node
 
 <figure><img src=".gitbook/assets/Logo win (1).png" alt=""><figcaption></figcaption></figure>
