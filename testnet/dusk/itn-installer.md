@@ -74,6 +74,26 @@ Check the status of the Rusk service by running:
 service rusk status
 ```
 
+### Stake
+
+Stake Balance. Use the following commands:
+
+```sh
+rusk-wallet stake --amt 1000
+```
+
+Check the status Stake:
+
+```sh
+rusk-wallet stake-info
+```
+
+Check node is participating in consensus and creating blocks
+
+```sh
+grep "execute_state_transition" /var/log/rusk.log | tail -n 5
+```
+
 ## Diagnostics
 
 Check if your node is syncing, processing and accepting new blocks:
