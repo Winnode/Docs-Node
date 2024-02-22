@@ -17,3 +17,9 @@ Check the status of the Rusk service by running:
 ```sh
 service rusk status
 ```
+
+check Log:
+
+```sh
+tail -F /var/log/rusk.log
+```
