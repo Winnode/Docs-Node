@@ -22,6 +22,7 @@
   * [Cheat Sheet](testnet/mantra/cheat-sheet.md)
 * [Dusk](testnet/dusk/README.md)
   * [ITN Installer](testnet/dusk/itn-installer.md)
+  * [Update](testnet/dusk/update.md)
 * [NuLink Testnet](testnet/nulink-testnet/README.md)
   * [Install](testnet/nulink-testnet/install.md)
 * [Namada Shielded Expedition](testnet/namada-shielded-expedition/README.md)
