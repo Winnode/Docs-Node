@@ -11,8 +11,7 @@
 
 * [0G](testnet/0g/README.md)
   * [README](testnet/0g/readme.md)
-  * [Insatallation](testnet/0g/insatallation/README.md)
-    * [Installation](testnet/0g/insatallation/installation.md)
+  * [Installation](testnet/0g/installation.md)
 * [Pryzm](testnet/pryzm/README.md)
   * [Installation](testnet/pryzm/installation.md)
   * [Cheat Sheet](testnet/pryzm/cheat-sheet.md)
