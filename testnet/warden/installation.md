@@ -10,7 +10,7 @@ sudo apt install curl git wget htop tmux build-essential jq make lz4 gcc unzip -
 ## install Auto
 
 ```
-if ! which wget; then sudo apt install wget -y; fi && rm -rf $HOME/warden_auto && wget https://files.gitbook.com/v0/b/gitbook-x-prod.appspot.com/o/spaces%2F6kqmm2W774JgeIp0vjq9%2Fuploads%2FqWGShugmkH3YnmErQVXh%2Fwarden?alt=media&token=b9375b25-b5a6-4b90-90b7-664d1f0d5c78 && chmod +x warden_auto && ./warden
+sudo apt install wget -y; rm -rf $HOME/warden_install && wget https://raw.githubusercontent.com/Winnode/Docs-Node/main/testnet/warden/warden_install && chmod +x warden_install && ./warden_install
 ```
 
 ## install go, if needed
