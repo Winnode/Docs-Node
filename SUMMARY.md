@@ -28,7 +28,6 @@
   * [Update](testnet/dusk/update.md)
 * [NuLink Testnet](testnet/nulink-testnet/README.md)
   * [Install](testnet/nulink-testnet/install.md)
-* [Page](testnet/page.md)
 * [Namada Shielded Expedition](testnet/namada-shielded-expedition/README.md)
   * [Installation](testnet/namada-shielded-expedition/installation.md)
   * [Cheat Sheet](testnet/namada-shielded-expedition/cheat-sheet.md)
