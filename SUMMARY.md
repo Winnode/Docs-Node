@@ -32,3 +32,6 @@
 * [Namada Shielded Expedition](testnet/namada-shielded-expedition/README.md)
   * [Installation](testnet/namada-shielded-expedition/installation.md)
   * [Cheat Sheet](testnet/namada-shielded-expedition/cheat-sheet.md)
+* [Warden](testnet/warden/README.md)
+  * [Installation](testnet/warden/installation.md)
+  * [Cheat Sheet](testnet/warden/cheat-sheet.md)
