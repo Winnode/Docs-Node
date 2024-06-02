@@ -1,0 +1,169 @@
+#!/bin/bash
+clear
+
+if [[ ! -f "$HOME/.bash_profile" ]]; then
+    touch "$HOME/.bash_profile"
+fi
+
+if [ -f "$HOME/.bash_profile" ]; then
+    source $HOME/.bash_profile
+fi
+
+logo_winnode(){
+
+clear
+
+ cat << "EOF"
+=========================================================================
+
+.$$......$$.$$$$. $$....$$.$$....$$..$$$$$$$..$$$$$$$$..$$$$$$$$ '
+.$$..$$..$$..$$.. $$$...$$.$$$...$$. $$.....$$. $$.....$$. $$...... '
+.$$..$$..$$..$$.. $$$$..$$.$$$$..$$. $$.....$$. $$.....$$. $$...... '
+.$$..$$..$$..$$.. $$.$$.$$.$$.$$.$$.$$.....$$. $$.....$$. $$$$$$.. '
+.$$..$$..$$..$$.. $$..$$$$.$$..$$$$.$$.....$$. $$.....$$. $$...... '
+.$$..$$..$$..$$.. $$...$$$.$$...$$$.$$.....$$. $$.....$$. $$...... '
+..$$$..$$$$..$$$$ $$....$$.$$....$$..$$$$$$$..$$$$$$$$..$$$$$$$$ '
+
+=========================================================================
+             Developed by: NodeSync.Top
+             Twitter: https://twitter.com/Winnode
+             Telegram: https://t.me/winnodexx
+=========================================================================
+EOF
+
+}
+
+logo_winnode;
+
+
+
+echo "===========Warden Protocol Install Easy======= " && sleep 1
+
+read -p "Do you want run node Warden Protocol ? (y/n): " choice
+
+if [ "$choice" == "y" ]; then
+
+sudo apt update && sudo apt upgrade -y
+sudo apt install make curl git wget -y
+sudo apt install htop tmux build-essential jq make lz4 gcc unzip -y
+
+if ! which go ; then
+#Install GO
+ver="1.21.5"
+wget "https://golang.org/dl/go$ver.linux-amd64.tar.gz"
+sudo rm -rf /usr/local/go
+sudo tar -C /usr/local -xzf "go$ver.linux-amd64.tar.gz"
+rm "go$ver.linux-amd64.tar.gz"
+echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> $HOME/.bash_profile
+source $HOME/.bash_profile
+go version
+
+fi
+
+if ! which go ; then
+rm "go$ver.linux-amd64.tar.gz" 
+ver="1.21.3"
+wget "https://golang.org/dl/go$ver.linux-amd64.tar.gz"
+sudo rm -rf /usr/local/go
+sudo tar -C /usr/local -xzf "go$ver.linux-amd64.tar.gz"
+rm "go$ver.linux-amd64.tar.gz"
+echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> $HOME/.bash_profile
+source $HOME/.bash_profile
+go version
+
+fi
+
+
+
+cd $HOME
+rm -rf warden
+
+wget https://github.com/warden-protocol/wardenprotocol/releases/download/v0.3.0/wardend_Linux_x86_64.zip
+unzip wardend_Linux_x86_64.zip && rm -rf wardend_Linux_x86_64.zip
+
+chmod +x wardend
+
+sudo mv wardend /usr/local/bin
+
+wardend version
+
+
+wardend config keyring-backend os
+wardend config chain-id buenavista-1
+wardend init NodeName --chain-id buenavista-1
+
+# Download genesis and addrbook 
+wget -O $HOME/.warden/config/genesis.json https://files.nodesync.top/Warden/genesis.json
+wget -O $HOME/.warden/config/addrbook.json https://files.nodesync.top/Warden/addrbook.json
+
+
+SEEDS=""
+
+#PEERS="61446070887838944c455cb713a7770b41f35ac5@37.60.249.101:26656,0be8cf6de2a01a6dc7adb29a801722fe4d061455@65.109.115.100:27060,8288657cb2ba075f600911685670517d18f54f3b@65.108.231.124:18656,dc0122e37c203dec43306430a1f1879650653479@37.27.97.16:26656,b14f35c07c1b2e58c4a1c1727c89a5933739eeea@warden-testnet-peer.itrocket.net:18656,61446070887838944c455cb713a7770b41f35ac5@37.60.249.101:26656,0be8cf6de2a01a6dc7adb29a801722fe4d061455@65.109.115.100:27060,8288657cb2ba075f600911685670517d18f54f3b@65.108.231.124:18656,dc0122e37c203dec43306430a1f1879650653479@37.27.97.16:26656,6fb5cf2179ca9dd98ababd1c8d29878b2021c5c3@146.19.24.175:26856"
+
+PEERS=$(curl -s https://files.nodesync.top/Warden/peers.txt)
+
+
+sed -i -e "s/^seeds *=.*/seeds = \"$SEEDS\"/; s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.warden/config/config.toml
+
+# config pruning
+sed -i -e "s/^pruning *=.*/pruning = \"custom\"/" $HOME/.warden/config/app.toml
+sed -i -e "s/^pruning-keep-recent *=.*/pruning-keep-recent = \"100\"/" $HOME/.warden/config/app.toml
+sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"50\"/" $HOME/.warden/config/app.toml
+
+# set minimum gas price, enable prometheus and disable indexing
+sed -i 's|minimum-gas-prices =.*|minimum-gas-prices = "0.0025uward"|g' $HOME/.warden/config/app.toml
+sed -i -e "s/prometheus = false/prometheus = true/" $HOME/.warden/config/config.toml
+sed -i -e "s/^indexer *=.*/indexer = \"null\"/" $HOME/.warden/config/config.toml
+
+
+
+sudo tee /etc/systemd/system/wardend.service > /dev/null <<EOF
+[Unit]
+Description=Warden Protocol
+After=network-online.target
+[Service]
+User=root
+ExecStart=$(which wardend) start
+Restart=always
+RestartSec=3
+LimitNOFILE=65535
+[Install]
+WantedBy=multi-user.target
+EOF
+
+
+cd $HOME
+
+wardend tendermint unsafe-reset-all --home $HOME/.warden
+
+
+wget https://testnet-files.itrocket.net/warden/snap_warden.tar.lz4
+lz4 -c -d snap_warden.tar.lz4 | tar -x -C $HOME/.warden
+
+echo "Wait extracting... " && sleep 1
+
+rm -rf snap_warden.tar.lz4
+
+
+echo "Wait start node " && sleep 2
+
+sudo systemctl daemon-reload
+sudo systemctl enable wardend
+sudo systemctl restart wardend && sudo journalctl -u wardend -f --no-hostname -o cat
+
+
+echo "===================Install Success==================="
+
+else
+
+echo "Not installed"
+
+fi
+ 
+
+
+
+
+
+
